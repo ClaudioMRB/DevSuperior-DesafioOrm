@@ -2,14 +2,17 @@ package com.devsuperior.DesafioBackEnd.entidades;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
 @Table(name = "tb_bloco")
-public class Bloco {
+public class Bloco implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant inicio;
