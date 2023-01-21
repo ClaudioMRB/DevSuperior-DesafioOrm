@@ -17,7 +17,7 @@ public class Atividade implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String nome;
 	@Column(columnDefinition = "TEXT")
 	private String descricao;
@@ -36,18 +36,21 @@ public class Atividade implements Serializable {
 	public Atividade() {
 	}
 
-	public Atividade(Integer id, String nome, String descricao, Double preco) {
+	public Atividade(Long id, String nome, String descricao, Double preco, Categoria categoria, List<Bloco> blocos, Set<Participante> participantes) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.categoria = categoria;
+		this.blocos = blocos;
+		this.participantes = participantes;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -95,14 +98,6 @@ public class Atividade implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Atividade{" +
-				"id=" + id +
-				", nome='" + nome + '\'' +
-				", descricao='" + descricao + '\'' +
-				", preco=" + preco +
-				", categoria=" + categoria +
-				", blocos=" + blocos +
-				", participantes=" + participantes +
-				'}';
+		return "Nome do curso" + ": " + getNome();
 	}
 }

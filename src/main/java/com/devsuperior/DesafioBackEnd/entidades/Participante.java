@@ -14,7 +14,7 @@ public class Participante implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
 
     @Column(unique = true)
@@ -27,17 +27,18 @@ public class Participante implements Serializable {
     public Participante() {
     }
 
-    public Participante(Integer id, String name, String email) {
+    public Participante(Long id, String name, String email, Set<Atividade> atividades) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.atividades = atividades;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

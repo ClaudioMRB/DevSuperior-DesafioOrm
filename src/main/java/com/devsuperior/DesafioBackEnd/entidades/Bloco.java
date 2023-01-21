@@ -13,7 +13,7 @@ public class Bloco implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant inicio;
 	private Instant fim;
@@ -26,17 +26,18 @@ public class Bloco implements Serializable {
 
 	}
 
-	public Bloco(Integer id, Instant inicio, Instant fim) {
+	public Bloco(Long id, Instant inicio, Instant fim, Atividade atividade) {
 		this.id = id;
 		this.inicio = inicio;
 		this.fim = fim;
+		this.atividade = atividade;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
