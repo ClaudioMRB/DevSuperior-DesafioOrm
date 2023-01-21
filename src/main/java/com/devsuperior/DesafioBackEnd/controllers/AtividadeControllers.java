@@ -1,14 +1,13 @@
 package com.devsuperior.DesafioBackEnd.controllers;
 //1° teste da API
 
-import com.devsuperior.DesafioBackEnd.entidades.Atividade;
-import com.devsuperior.DesafioBackEnd.repositories.AtividadeRepository;
+import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
+import com.devsuperior.DesafioBackEnd.services.AtividadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Optional;
 
 @RestController /*esta anotacao vai configurar para que quando a aplicacao rodar o que eu implementar nesta classe
 vai estar respondendo pela web*/
@@ -20,15 +19,14 @@ public class AtividadeControllers {
     @Autowired e responsavel por injetar
      */
     @Autowired
-    private AtividadeRepository repository;
+    private AtividadeService service;
 
-    @GetMapping /*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
+    @GetMapping (value = "/{id}")/*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
     determinada em @RequestMapping (value = "/Atividade")*/
-    public String teste() {
+    public AtividadeDto findById(@PathVariable  Long id) {
 
-        Optional<Atividade> result = repository.findById(1L);
-        Atividade ativ = result.get();
-        return ativ.toString();
+        AtividadeDto dto = service.findById(id);
+        return dto;
 
     }
 
