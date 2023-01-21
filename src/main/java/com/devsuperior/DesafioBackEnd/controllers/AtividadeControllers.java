@@ -4,10 +4,14 @@ package com.devsuperior.DesafioBackEnd.controllers;
 import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
 import com.devsuperior.DesafioBackEnd.services.AtividadeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController /*esta anotacao vai configurar para que quando a aplicacao rodar o que eu implementar nesta classe
 vai estar respondendo pela web*/
@@ -27,6 +31,14 @@ public class AtividadeControllers {
 
         AtividadeDto dto = service.findById(id);
         return dto;
+
+    }
+
+    @GetMapping /*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
+    determinada em @RequestMapping (value = "/Atividade")*/
+    public Page<AtividadeDto> findAll(Pageable pageable) {
+        //public List<AtividadeDto> findAll()
+        return service.findAll(pageable);
 
     }
 
