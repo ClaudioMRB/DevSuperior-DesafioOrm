@@ -1,5 +1,6 @@
 package com.devsuperior.DesafioBackEnd.repositories;
 
+import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
 import com.devsuperior.DesafioBackEnd.entidades.Atividade;
 import org.springframework.data.jpa.repository.JpaRepository;
 

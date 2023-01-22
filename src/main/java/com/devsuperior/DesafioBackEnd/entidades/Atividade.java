@@ -1,6 +1,7 @@
 package com.devsuperior.DesafioBackEnd.entidades;
 
 
+import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class Atividade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,6 +24,7 @@ public class Atividade implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String descricao;
 	private Double preco;
+
 
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
@@ -32,7 +35,7 @@ public class Atividade implements Serializable {
 
 	@ManyToMany(mappedBy = "atividades")
 	private Set<Participante> participantes = new HashSet<>();
-	
+
 	public Atividade() {
 	}
 

@@ -41,4 +41,18 @@ public class AtividadeService {
         return result.map(x -> new AtividadeDto(x));
     }
 
+    @Transactional(readOnly = true)
+    //Inserir dados no banco
+    public AtividadeDto Insert(AtividadeDto dto) {
+
+       Atividade entity = new Atividade();
+        entity.setNome(dto.getNome());
+        entity.setDescricao(dto.getDescricao());
+        entity.setPreco(dto.getPreco());
+
+
+        entity = repository.save(entity);
+        return new AtividadeDto(entity);
+
+    }
 }

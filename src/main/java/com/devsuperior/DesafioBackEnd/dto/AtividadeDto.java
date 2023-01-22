@@ -10,21 +10,28 @@ public class AtividadeDto {
     private String descricao;
     private Double preco;
 
+
     public AtividadeDto() {
     }
 
-    public AtividadeDto(Long id, String nome, String descricao, Double preco) {
+  /*  public AtividadeDto(Long id, String nome, String descricao, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-    }
+
+    }*/
 
     public AtividadeDto(Atividade entity) {
         id = entity.getId();
         nome = entity.getNome();
         descricao = entity.getDescricao();
         preco = entity.getPreco();
+
+    }
+
+    public AtividadeDto(AtividadeDto x) {
+
     }
 
     public Long getId() {
@@ -41,5 +48,17 @@ public class AtividadeDto {
 
     public Double getPreco() {
         return preco;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 }
