@@ -26,7 +26,8 @@ public class AtividadeControllers {
     private AtividadeService service;
 
     @GetMapping (value = "/{id}")/*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
-    determinada em @RequestMapping (value = "/Atividade")*/
+    determinada em @RequestMapping (value = "/Atividade")
+    buscar dados por ID*/
     public ResponseEntity<AtividadeDto> findById(@PathVariable  Long id) {
 
         AtividadeDto findbyid = service.findById(id);
@@ -35,7 +36,8 @@ public class AtividadeControllers {
     }
 
     @GetMapping /*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
-    determinada em @RequestMapping (value = "/Atividade")*/
+    determinada em @RequestMapping (value = "/Atividade")
+    buscar dados gerais*/
     public ResponseEntity<Page<AtividadeDto>> findAll(Pageable pageable) {
         Page<AtividadeDto> findAllDto = service.findAll(pageable);
         return ResponseEntity.ok(findAllDto);
@@ -49,5 +51,14 @@ public class AtividadeControllers {
         insertDto = service.Insert(insertDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(insertDto.getId()).toUri();
         return ResponseEntity.created(uri).body(insertDto);
+    }
+
+    @PutMapping(value = "/{id}") //Atualizar dados no banco
+    public ResponseEntity<AtividadeDto> update(@PathVariable Long id, @RequestBody AtividadeDto updateDto) {
+
+        updateDto = service.update(id, updateDto);
+        return ResponseEntity.ok(updateDto);
+
+
     }
 }

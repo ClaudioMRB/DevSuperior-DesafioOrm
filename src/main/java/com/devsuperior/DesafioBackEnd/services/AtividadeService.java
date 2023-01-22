@@ -45,14 +45,27 @@ public class AtividadeService {
     //Inserir dados no banco
     public AtividadeDto Insert(AtividadeDto dto) {
 
-       Atividade entity = new Atividade();
-        entity.setNome(dto.getNome());
-        entity.setDescricao(dto.getDescricao());
-        entity.setPreco(dto.getPreco());
-
-
+        Atividade entity = new Atividade();
+        copyDtoToEntity(dto, entity);
         entity = repository.save(entity);
         return new AtividadeDto(entity);
 
+    }
+
+    @Transactional(readOnly = true)
+    //Atualizar dados no banco
+    public AtividadeDto update(Long id, AtividadeDto dto) {
+
+        Atividade entity = repository.getReferenceById(id);
+        copyDtoToEntity(dto, entity);
+        entity = repository.save(entity);
+        return new AtividadeDto(entity);
+
+    }
+
+    private void copyDtoToEntity(AtividadeDto dto, Atividade entity) {
+        entity.setNome(dto.getNome());
+        entity.setDescricao(dto.getDescricao());
+        entity.setPreco(dto.getPreco());
     }
 }

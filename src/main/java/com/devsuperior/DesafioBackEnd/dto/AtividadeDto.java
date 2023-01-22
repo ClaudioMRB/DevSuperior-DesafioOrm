@@ -11,6 +11,8 @@ public class AtividadeDto {
     private Double preco;
 
 
+
+
     public AtividadeDto() {
     }
 
