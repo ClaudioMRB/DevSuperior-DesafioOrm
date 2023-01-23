@@ -3,16 +3,18 @@ package com.devsuperior.DesafioBackEnd.services;
 import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
 import com.devsuperior.DesafioBackEnd.entidades.Atividade;
 import com.devsuperior.DesafioBackEnd.repositories.AtividadeRepository;
-import com.devsuperior.DesafioBackEnd.services.excecoes.ResourceNotFoundExcepition;
+import com.devsuperior.DesafioBackEnd.services.excecoes.DatabaseException;
+import com.devsuperior.DesafioBackEnd.services.excecoes.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +28,7 @@ public class AtividadeService {
     public AtividadeDto findById(Long id) {
 
            Optional<Atividade> result = repository.findById(id);
-           Atividade ativ = result.orElseThrow(() -> new ResourceNotFoundExcepition("Recurso não encontrado"));
+           Atividade ativ = result.orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
            //AtividadeDto dto = new AtividadeDto(ativ.getId(), ativ.getNome(), ativ.getDescricao(), ativ.getPreco());
            AtividadeDto dto = new AtividadeDto(ativ);
            return dto;
@@ -68,15 +70,22 @@ public class AtividadeService {
            entity = repository.save(entity);
            return new AtividadeDto(entity);
        }catch(EntityNotFoundException e){
-           throw new  ResourceNotFoundExcepition("Recurso não encontrado");
+           throw new ResourceNotFoundException("Recurso não encontrado");
        }
 
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     //Deletar dados no banco por id
     public void delete(Long id) {
-        repository.deleteById(id);
+        try{
+            repository.deleteById(id);
+        }catch(EmptyResultDataAccessException e){
+            throw new  ResourceNotFoundException("Recurso não encontrado");
+        }catch(DataIntegrityViolationException e){
+            throw new DatabaseException("Falha de integridade referencial");
+        }
+
 
     }
 
