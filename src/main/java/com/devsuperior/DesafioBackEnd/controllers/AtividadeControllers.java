@@ -2,16 +2,18 @@ package com.devsuperior.DesafioBackEnd.controllers;
 //1° teste da API
 
 import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
+import com.devsuperior.DesafioBackEnd.dto.CustomError;
 import com.devsuperior.DesafioBackEnd.services.AtividadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+import java.time.Instant;
 
 @RestController /*esta anotacao vai configurar para que quando a aplicacao rodar o que eu implementar nesta classe
 vai estar respondendo pela web*/
@@ -25,10 +27,10 @@ public class AtividadeControllers {
     @Autowired
     private AtividadeService service;
 
-    @GetMapping (value = "/{id}")/*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
+    @GetMapping(value = "/{id}")/*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
     determinada em @RequestMapping (value = "/Atividade")
     buscar dados por ID*/
-    public ResponseEntity<AtividadeDto> findById(@PathVariable  Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id) {
 
         AtividadeDto findbyid = service.findById(id);
         return ResponseEntity.ok(findbyid);
@@ -43,7 +45,6 @@ public class AtividadeControllers {
         return ResponseEntity.ok(findAllDto);
 
     }
-
 
     @PostMapping //inserir dados no banco
     public ResponseEntity<AtividadeDto> insert(@RequestBody AtividadeDto insertDto) {
@@ -65,7 +66,7 @@ public class AtividadeControllers {
     @DeleteMapping(value = "/{id}") //Deletar dados no banco
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
-    service.delete(id);
+        service.delete(id);
         return ResponseEntity.noContent().build();
 
 
