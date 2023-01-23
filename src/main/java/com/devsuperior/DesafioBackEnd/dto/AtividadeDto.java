@@ -2,6 +2,7 @@ package com.devsuperior.DesafioBackEnd.dto;
 
 import com.devsuperior.DesafioBackEnd.entidades.Atividade;
 
+
 public class AtividadeDto {
 
 

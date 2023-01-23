@@ -63,9 +63,20 @@ public class AtividadeService {
 
     }
 
+    @Transactional
+    //Deletar dados no banco por id
+    public void delete(Long id) {
+        repository.deleteById(id);
+
+    }
+
     private void copyDtoToEntity(AtividadeDto dto, Atividade entity) {
         entity.setNome(dto.getNome());
         entity.setDescricao(dto.getDescricao());
         entity.setPreco(dto.getPreco());
+
+
     }
+
+
 }

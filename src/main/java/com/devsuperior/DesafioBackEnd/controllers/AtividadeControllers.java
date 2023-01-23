@@ -61,4 +61,13 @@ public class AtividadeControllers {
 
 
     }
+
+    @DeleteMapping(value = "/{id}") //Deletar dados no banco
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+
+    service.delete(id);
+        return ResponseEntity.noContent().build();
+
+
+    }
 }
