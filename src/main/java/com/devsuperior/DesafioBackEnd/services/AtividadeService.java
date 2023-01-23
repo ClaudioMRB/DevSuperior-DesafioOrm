@@ -4,7 +4,9 @@ import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
 import com.devsuperior.DesafioBackEnd.entidades.Atividade;
 import com.devsuperior.DesafioBackEnd.repositories.AtividadeRepository;
 import com.devsuperior.DesafioBackEnd.services.excecoes.ResourceNotFoundExcepition;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -60,10 +62,14 @@ public class AtividadeService {
     //Atualizar dados no banco
     public AtividadeDto update(Long id, AtividadeDto dto) {
 
-        Atividade entity = repository.getReferenceById(id);
-        copyDtoToEntity(dto, entity);
-        entity = repository.save(entity);
-        return new AtividadeDto(entity);
+       try{
+           Atividade entity = repository.getReferenceById(id);
+           copyDtoToEntity(dto, entity);
+           entity = repository.save(entity);
+           return new AtividadeDto(entity);
+       }catch(EntityNotFoundException e){
+           throw new  ResourceNotFoundExcepition("Recurso não encontrado");
+       }
 
     }
 

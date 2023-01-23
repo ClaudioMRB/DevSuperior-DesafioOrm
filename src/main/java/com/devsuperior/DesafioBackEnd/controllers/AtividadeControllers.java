@@ -2,18 +2,15 @@ package com.devsuperior.DesafioBackEnd.controllers;
 //1° teste da API
 
 import com.devsuperior.DesafioBackEnd.dto.AtividadeDto;
-import com.devsuperior.DesafioBackEnd.dto.CustomError;
 import com.devsuperior.DesafioBackEnd.services.AtividadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.Instant;
 
 @RestController /*esta anotacao vai configurar para que quando a aplicacao rodar o que eu implementar nesta classe
 vai estar respondendo pela web*/
@@ -30,7 +27,7 @@ public class AtividadeControllers {
     @GetMapping(value = "/{id}")/*Configurar a operacao abaixo para que ela responda a rota pelo metodo HTTP
     determinada em @RequestMapping (value = "/Atividade")
     buscar dados por ID*/
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<AtividadeDto> findById(@PathVariable Long id) {
 
         AtividadeDto findbyid = service.findById(id);
         return ResponseEntity.ok(findbyid);
